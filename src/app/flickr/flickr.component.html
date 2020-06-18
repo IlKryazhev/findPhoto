@@ -1,0 +1,36 @@
+<div class="main-container">
+
+  <header class="header header-6">
+    Search photo app
+  </header>
+
+  <div class="search">
+    <input [formControl]="search" type="text" placeholder="Search for keywords...">
+  </div>
+
+  <div *ngIf="!isLoading" class="content-container">
+    <app-infinite-scroll (scrolled)="getMorePhotos()">
+      <div class="clr-row">
+        <div *ngFor="let photo of photos" class="clr-col-lg-4 clr-col-12">
+          <div class="card">
+            <div class="card-img">
+              <img [src]="photo.url" [alt]="photo.title" />
+            </div>
+            <div class="card-block">
+              <p class="card-text">
+                {{ photo.title }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isMoreLoading" class="more-loading">
+        <img src="/assets/base-preloader.svg" alt="Loading">
+      </div>
+    </app-infinite-scroll>
+  </div>
+
+  <div *ngIf="isLoading" class="preloader">
+    <img src="/assets/base-preloader.svg" alt="Loading">
+  </div>
+</div>
